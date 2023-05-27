@@ -1,0 +1,24 @@
+{
+  "name": "random-countries",
+  "version": "1.0.0",
+  "description": "Site for pulling information about random countries from a specified continent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmxwillow/random-countries.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmxwillow/random-countries/issues"
+  },
+  "homepage": "https://github.com/mmxwillow/random-countries#readme",
+  "devDependencies": {
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  }
+}
