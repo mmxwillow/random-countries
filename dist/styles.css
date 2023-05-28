@@ -55,6 +55,22 @@ input, button, select{
     font-weight: bold;
     width: 6rem;
 }
+button:disabled{
+    filter:brightness(70%);
+    cursor:not-allowed;
+}
+form{
+    position:relative;
+}
+form::before{
+    content:attr(data-error);
+    position: absolute;
+    color:rgb(180, 68, 68);
+    top:-1.5rem;
+    width:100%;
+    text-align: center;
+    font-size: 12px;
+}
 
 @media (max-width:500px) {
     h1{
