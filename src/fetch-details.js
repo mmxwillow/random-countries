@@ -1,27 +1,31 @@
-export default async function fetchDetails(country) {
+export default async function fetchDetails(countries) {
     try {
-      const response = await fetch(`https://restcountries.com/v3.1/name/${country}`, {
-        mode: 'cors'
+      const promises = await Promise.all(countries.map(country => fetch(`https://restcountries.com/v3.1/name/${country.name}`, {mode: 'cors'})));
+      const arr = await Promise.all(promises.map(p => p.json()));
+      const results = [];
+      arr.forEach(country => {
+        results.push(processData(country[0]))
       });
-      const data = await response.json();
-      processData(data[0]);
+      document.querySelector('.error').innerHTML = "";
+      return results;
   
     } catch (e) {
+      document.querySelector('.error').innerHTML = "There's been an error, couldn't fetch details."
       console.error(e);
-      return "There's been an error. Try again."
+      return countries;
     }
   }
 
   function processData(data){
     let country = {
         OfficialName: data.name.official,
-        Capital: data.capital.toString(),
+        Capital: data.capital.toString().replaceAll(",",", "),
         Population: data.population,
-        Currency: getCurrencyNames(data.currencies),
+        Currency: getCurrencyNames(data.currencies).replaceAll(",",", "),
         Subregion: data.subregion,
-        Languages: getLanguageNames(data.languages),
+        Languages: getLanguageNames(data.languages).replaceAll(",",", "),
     }
-    console.log(country)
+    return country;
   }
 
   function getCurrencyNames(objKeys){

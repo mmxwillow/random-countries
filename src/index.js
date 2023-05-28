@@ -1,9 +1,12 @@
 import fetchCountries from "./fetch-countries";
+import fetchDetails from "./fetch-details";
+import displayData from "./display-data";
 
 const select = document.querySelector('select');
-const range = document.querySelector('input[type="range"]');
+const range = document.querySelector('input[type="number"]');
 const submit = document.querySelector('button');
 const form = document.querySelector('form');
+const container = document.querySelector('.container');
 
 const continents = {
     AF: 'Africa',
@@ -24,13 +27,11 @@ Object.entries(continents).forEach(entry => {
     select.appendChild(option);
 })
 
-submit.innerHTML = `Show ${range.value} countries`;
-
-range.addEventListener('input', () => {
-    submit.innerHTML = `Show ${range.value} countries`;
-})
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    let countries = fetchCountries(select.value, range.value);
+    container.innerHTML = "Loading..."
+    fetchCountries(select.value, range.value).then( result => {
+        fetchDetails(result).then(countries => displayData(countries));
+    })
 })
+

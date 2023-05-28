@@ -1,8 +1,7 @@
-import fetchDetails from "./fetch-details";
-
 export default async function fetchCountries(continent, amount) {
     try {
       const response = await fetch("https://countries.trevorblades.com/", {
+        mode: 'cors',
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -21,9 +20,11 @@ export default async function fetchCountries(continent, amount) {
         }),
       });
       const data = await response.json();
+      document.querySelector('.error').innerHTML = "";
       return getRandomCountries(amount, data.data.continent.countries);
   
     } catch (e) {
+      document.querySelector('.error').innerHTML = "There's been an error. Try again."
       console.error(e);
       return "There's been an error. Try again."
     }
@@ -31,14 +32,16 @@ export default async function fetchCountries(continent, amount) {
 
   function getRandomCountries(amount, countries){
     let arr = [];
-    for(let i = 0; i<amount; i++){
-        let position = Math.floor(Math.random() * countries.length - i) + i;
+    if(amount > countries.length){
+      arr = [...countries];
+    }
+    else{
+      for(let i = 0; i<amount; i++){
+        let position = Math.floor(Math.random() * (countries.length - i));
         arr.push(countries[position]);
         countries.push(countries.splice(position, 1)[0]);
+      }
     }
-    arr.forEach(country => {
-      fetchDetails(country.name)
-    })
     return arr;
 }
     
