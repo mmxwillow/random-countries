@@ -24,6 +24,7 @@ form{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
     gap:2rem;
+    text-align: center;
 }
 .card{
     padding:1rem;
@@ -79,6 +80,9 @@ form::before{
     form{
         flex-wrap: wrap;
         justify-content: center;
+    }
+    form::before{
+        font-size: 10px;
     }
 }
 

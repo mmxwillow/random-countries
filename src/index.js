@@ -43,6 +43,6 @@ function validateInput() {
     form.removeAttribute('data-error');
   }else{
     submit.disabled = true;
-    form.setAttribute('data-error', 'Has to be a number bigger than 1 and smaller than 11.')
+    form.setAttribute('data-error', 'Has to be a number between 1 and 11.')
   }
 }
