@@ -1,3 +1,5 @@
+import fetchDetails from "./fetch-details";
+
 export default async function fetchCountries(continent, amount) {
     try {
       const response = await fetch("https://countries.trevorblades.com/", {
@@ -19,7 +21,6 @@ export default async function fetchCountries(continent, amount) {
         }),
       });
       const data = await response.json();
-      console.log(data.data.continent.countries)
       return getRandomCountries(amount, data.data.continent.countries);
   
     } catch (e) {
@@ -35,7 +36,9 @@ export default async function fetchCountries(continent, amount) {
         arr.push(countries[position]);
         countries.push(countries.splice(position, 1)[0]);
     }
-    console.log(arr);
+    arr.forEach(country => {
+      fetchDetails(country.name)
+    })
     return arr;
 }
     
